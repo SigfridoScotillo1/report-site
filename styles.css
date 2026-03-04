@@ -191,8 +191,8 @@ a:hover{
 
 .eni-logo{
   display: inline-block;
-  width: 68px;
-  height: 68px;
+  width: 64px;
+  height: 64px;
   object-fit: contain;
   border-radius: 8px; /* opzionale */
 }
