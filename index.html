@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <title>Report di sostenibilità – Eni (download)</title>
-
   <meta name="description" content="Pagina informativa per conoscere le iniziative di sostenibilità e scaricare i report ufficiali (PDF) di Eni." />
 
   <link rel="stylesheet" href="styles.css" />
@@ -28,6 +27,21 @@
         <a href="#risultati-2024">Risultati 2024</a>
         <a href="#obiettivi">Obiettivi</a>
         <a href="#download">Download report</a>
+
+        <!-- Theme switch (Day/Night) -->
+        <button class="theme-switch"
+                type="button"
+                role="switch"
+                aria-checked="false"
+                aria-label="Attiva modalità scura">
+          <span class="theme-switch__track" aria-hidden="true">
+            <span class="theme-switch__thumb" aria-hidden="true"></span>
+          </span>
+          <span class="theme-switch__text">
+            <span class="theme-switch__icon" aria-hidden="true">☀️</span>
+            <span class="theme-switch__label">Giorno</span>
+          </span>
+        </button>
 
         <!-- Selettore lingua (hash aggiunto via JS) -->
         <span class="lang" aria-label="Selettore lingua">
@@ -72,7 +86,7 @@
       </div>
     </section>
 
-    <!-- Sezione contesto: descrive l'impresa e il perché dei report -->
+    <!-- Sezione contesto -->
     <section id="contesto" class="section section--alt">
       <div class="container">
         <h2>Chi è Eni</h2>
@@ -298,14 +312,60 @@
     </div>
   </footer>
 
-  <!-- Mantiene la stessa sezione quando passi da IT a EN e viceversa -->
   <script>
     (function () {
+      /* Keep same section when switching language */
       const hash = window.location.hash || "";
       const it = document.querySelector('.lang__link[lang="it"]');
       const en = document.querySelector('.lang__link[lang="en"]');
       if (it) it.href = "index.html" + hash;
       if (en) en.href = "en.html" + hash;
+
+      /* Theme switch: system + override + persistence */
+      const STORAGE_KEY = "theme";
+      const root = document.documentElement;
+      const btn = document.querySelector(".theme-switch");
+
+      function prefersDark() {
+        return window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
+      }
+
+      function setUI(isDark){
+        if (!btn) return;
+        btn.setAttribute("aria-checked", String(isDark));
+        btn.setAttribute("aria-label", isDark ? "Attiva modalità chiara" : "Attiva modalità scura");
+        const label = btn.querySelector(".theme-switch__label");
+        const icon = btn.querySelector(".theme-switch__icon");
+        if (label) label.textContent = isDark ? "Notte" : "Giorno";
+        if (icon) icon.textContent = isDark ? "🌙" : "☀️";
+      }
+
+      function apply(theme){
+        const isDark = theme === "dark";
+        if (isDark) root.setAttribute("data-theme", "dark");
+        else root.removeAttribute("data-theme");
+        setUI(isDark);
+      }
+
+      const saved = localStorage.getItem(STORAGE_KEY);
+      const initial = saved ? saved : (prefersDark() ? "dark" : "light");
+      apply(initial);
+
+      if (btn) {
+        btn.addEventListener("click", function () {
+          const nowDark = root.getAttribute("data-theme") === "dark";
+          const next = nowDark ? "light" : "dark";
+          localStorage.setItem(STORAGE_KEY, next);
+          apply(next);
+        });
+      }
+
+      if (window.matchMedia) {
+        window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", () => {
+          const manual = localStorage.getItem(STORAGE_KEY);
+          if (!manual) apply(prefersDark() ? "dark" : "light");
+        });
+      }
     })();
   </script>
 </body>
