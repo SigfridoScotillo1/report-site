@@ -350,7 +350,7 @@
       }
 
       const saved = localStorage.getItem(STORAGE_KEY);
-      const initial = saved ? saved : (prefersDark() ? "dark" : "light");
+      const initial = saved ? saved : "dark";   // default scuro, cambiabile tramite pulsante
       apply(initial);
 
       if (btn) {
