@@ -25,14 +25,14 @@
 
       <!-- Main navigation -->
       <nav class="nav" aria-label="Main navigation">
-        <a href="#results-2024">2024 highlights</a>
-        <a href="#goals">Goals</a>
-        <a href="#downloads">Report downloads</a>
+        <a href="#risultati-2024">2024 highlights</a>
+        <a href="#obiettivi">Goals</a>
+        <a href="#download">Report downloads</a>
 
-        <!-- Language switch -->
+        <!-- Language selector (hash added via JS) -->
         <span class="lang" aria-label="Language selector">
-          <a class="lang__link" href="index.html#risultati-2024" lang="it">IT</a>
-          <a class="lang__link" href="en.html#results-2024" lang="en" aria-current="page">EN</a>
+          <a class="lang__link" href="index.html" lang="it">IT</a>
+          <a class="lang__link" href="en.html" lang="en" aria-current="page">EN</a>
         </span>
       </nav>
     </div>
@@ -51,8 +51,8 @@
           </p>
 
           <div class="hero__cta">
-            <a class="button" href="#downloads">Go to PDFs</a>
-            <a class="button button--ghost" href="#goals">Upcoming goals</a>
+            <a class="button" href="#download">Go to PDFs</a>
+            <a class="button button--ghost" href="#obiettivi">Upcoming goals</a>
           </div>
 
           <p class="fineprint">
@@ -72,7 +72,7 @@
     </section>
 
     <!-- CONTEXT -->
-    <section id="context" class="section section--alt">
+    <section id="contesto" class="section section--alt">
       <div class="container">
         <h2>About Eni</h2>
         <p>
@@ -84,8 +84,8 @@
       </div>
     </section>
 
-    <!-- RESULTS 2024 -->
-    <section id="results-2024" class="section">
+    <!-- 2024 HIGHLIGHTS -->
+    <section id="risultati-2024" class="section">
       <div class="container">
         <h2>2024 highlights</h2>
         <p class="muted">
@@ -151,7 +151,7 @@
     </section>
 
     <!-- DOWNLOADS -->
-    <section id="downloads" class="section section--alt">
+    <section id="download" class="section section--alt">
       <div class="container">
         <h2>Report downloads (PDF)</h2>
         <p>
@@ -159,7 +159,6 @@
         </p>
 
         <div class="downloads">
-          <!-- Report 2024 -->
           <div class="download-item">
             <div class="download-item__meta">
               <span class="tag">2024</span>
@@ -167,12 +166,12 @@
               <p class="muted">Sustainability report – Italian version (PDF)</p>
             </div>
             <a class="button" target="_blank" rel="noopener"
+               aria-label="Download PDF: Eni for 2024 – A Just Transition (opens in a new tab)"
                href="https://www.eni.com/content/dam/enicom/documents/ita/sostenibilita/2024/eni-for-2024-just-transition-ita.pdf">
               Download PDF
             </a>
           </div>
 
-          <!-- Report 2023 -->
           <div class="download-item">
             <div class="download-item__meta">
               <span class="tag">2023</span>
@@ -180,12 +179,12 @@
               <p class="muted">Indicators and performance – Italian version (PDF)</p>
             </div>
             <a class="button" target="_blank" rel="noopener"
+               aria-label="Download PDF: Eni for 2023 – Sustainability performance (opens in a new tab)"
                href="https://www.eni.com/content/dam/enicom/documents/ita/sostenibilita/2023/performance-sostenibilita/eni-for-2023-performance-sostenibilita-ita.pdf">
               Download PDF
             </a>
           </div>
 
-          <!-- Report 2022 -->
           <div class="download-item">
             <div class="download-item__meta">
               <span class="tag">2022</span>
@@ -193,12 +192,12 @@
               <p class="muted">Indicators and performance – Italian version (PDF)</p>
             </div>
             <a class="button" target="_blank" rel="noopener"
+               aria-label="Download PDF: Eni for 2022 – Sustainability performance (opens in a new tab)"
                href="https://www.eni.com/assets/documents/ita/sostenibilita/2022/sustainability-performance-ita/eni-for-2022-performance-sostenibilita-ita-stampa.pdf">
               Download PDF
             </a>
           </div>
 
-          <!-- Annual Report 2024: Sustainability Statement -->
           <div class="download-item">
             <div class="download-item__meta">
               <span class="tag">Annual Report 2024</span>
@@ -206,6 +205,7 @@
               <p class="muted">Structured reporting (ESRS/CSRD) – PDF</p>
             </div>
             <a class="button button--ghost" target="_blank" rel="noopener"
+               aria-label="Open PDF: Sustainability Statement – Eni Annual Report 2024 (opens in a new tab)"
                href="https://report.eni.com/annual-report-2024/en/_assets/downloads/sustainability-eni-ar24.pdf">
               Open PDF
             </a>
@@ -223,7 +223,7 @@
     </section>
 
     <!-- GOALS -->
-    <section id="goals" class="section section--alt">
+    <section id="obiettivi" class="section section--alt">
       <div class="container">
         <h2>Goals and commitments</h2>
         <p class="muted">
@@ -296,5 +296,16 @@
       </p>
     </div>
   </footer>
+
+  <!-- Keeps the same section when switching between IT and EN -->
+  <script>
+    (function () {
+      const hash = window.location.hash || "";
+      const it = document.querySelector('.lang__link[lang="it"]');
+      const en = document.querySelector('.lang__link[lang="en"]');
+      if (it) it.href = "index.html" + hash;
+      if (en) en.href = "en.html" + hash;
+    })();
+  </script>
 </body>
 </html>
