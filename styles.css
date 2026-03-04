@@ -1,18 +1,38 @@
-/* Root*/
+/* =========================
+   THEME TOKENS (LIGHT default)
+   ========================= */
 :root{
-  /* Palette neutra */
+  /* Light theme */
+  --bg: #f7f9fc;
+  --panel: #ffffff;
+  --panel-2: #f1f5fb;
+  --text: #0b1220;
+  --muted: #3e4a5a;
+  --brand: #1b8f63;
+  --brand-2: #1f6feb;
+  --border: rgba(11,18,32,0.12);
+
+  --radius: 16px;
+  --shadow: 0 12px 30px rgba(0,0,0,0.12);
+  --max: 1100px;
+
+  color-scheme: light;
+}
+
+/* Dark theme override */
+html[data-theme="dark"]{
   --bg: #0b0f14;
   --panel: #111825;
   --panel-2: #0f1520;
   --text: #e9eef5;
   --muted: #b7c2d0;
-  --brand: #7ee2b8;     /* accento “sostenibilità” */
-  --brand-2: #69b3ff;   /* accento secondario */
+  --brand: #7ee2b8;
+  --brand-2: #69b3ff;
   --border: rgba(255,255,255,0.10);
 
-  --radius: 16px;
   --shadow: 0 12px 30px rgba(0,0,0,0.35);
-  --max: 1100px;
+
+  color-scheme: dark;
 }
 
 *{ box-sizing: border-box; }
@@ -24,11 +44,20 @@ html, body{
 
 body{
   font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
-  background: radial-gradient(1200px 800px at 20% 0%, rgba(126,226,184,0.12), transparent 60%),
-              radial-gradient(1200px 800px at 90% 20%, rgba(105,179,255,0.10), transparent 55%),
-              var(--bg);
+  background:
+    radial-gradient(1200px 800px at 20% 0%, rgba(27,143,99,0.10), transparent 60%),
+    radial-gradient(1200px 800px at 90% 20%, rgba(31,111,235,0.08), transparent 55%),
+    var(--bg);
   color: var(--text);
   line-height: 1.6;
+}
+
+/* Dark-specific background */
+html[data-theme="dark"] body{
+  background:
+    radial-gradient(1200px 800px at 20% 0%, rgba(126,226,184,0.12), transparent 60%),
+    radial-gradient(1200px 800px at 90% 20%, rgba(105,179,255,0.10), transparent 55%),
+    var(--bg);
 }
 
 a{
@@ -46,8 +75,9 @@ a:hover{
   margin: 0 auto;
 }
 
-/* Qui SKIP LINK*/
-
+/* =========================
+   SKIP LINK
+   ========================= */
 .skip-link{
   position: absolute;
   left: -999px;
@@ -60,16 +90,17 @@ a:hover{
 }
 
 .skip-link:focus{
-  left: 12px; /* appare quando si usa TAB */
+  left: 12px;
 }
 
-/* HEADER / NAV */
-
+/* =========================
+   HEADER / NAV
+   ========================= */
 .site-header{
   position: sticky;
   top: 0;
   backdrop-filter: blur(10px);
-  background: rgba(11,15,20,0.65);
+  background: color-mix(in srgb, var(--bg) 72%, transparent);
   border-bottom: 1px solid var(--border);
   z-index: 10;
 }
@@ -96,7 +127,7 @@ a:hover{
   width: 34px;
   height: 34px;
   border-radius: 12px;
-  background: linear-gradient(135deg, rgba(126,226,184,0.35), rgba(105,179,255,0.25));
+  background: linear-gradient(135deg, color-mix(in srgb, var(--brand) 35%, transparent), color-mix(in srgb, var(--brand-2) 25%, transparent));
   border: 1px solid var(--border);
 }
 
@@ -104,6 +135,7 @@ a:hover{
   display: flex;
   gap: 14px;
   flex-wrap: wrap;
+  align-items: center;
 }
 
 .nav a{
@@ -118,8 +150,35 @@ a:hover{
   text-decoration: none;
 }
 
-/* sezione hero*/
+/* =========================
+   LANGUAGE SWITCH (IT/EN)
+   ========================= */
+.lang{
+  display: inline-flex;
+  gap: 6px;
+  margin-left: 6px;
+}
 
+.lang__link{
+  padding: 8px 10px;
+  border-radius: 10px;
+  border: 1px solid transparent;
+  text-decoration: none;
+}
+
+.lang__link:hover,
+.lang__link:focus-visible{
+  border-color: color-mix(in srgb, var(--text) 18%, transparent);
+  text-decoration: none;
+}
+
+.lang__link[aria-current="page"]{
+  border-color: color-mix(in srgb, var(--text) 22%, transparent);
+}
+
+/* =========================
+   HERO
+   ========================= */
 .hero{
   padding: 42px 0 18px;
 }
@@ -151,7 +210,7 @@ h1{
 }
 
 .hero__card{
-  background: linear-gradient(180deg, rgba(17,24,37,0.9), rgba(15,21,32,0.9));
+  background: color-mix(in srgb, var(--panel) 84%, transparent);
   border: 1px solid var(--border);
   border-radius: var(--radius);
   box-shadow: var(--shadow);
@@ -174,14 +233,15 @@ h1{
   font-size: 0.92rem;
 }
 
-/* Griglie */
-
+/* =========================
+   SEZIONI / GRIGLIE
+   ========================= */
 .section{
   padding: 34px 0;
 }
 
 .section--alt{
-  background: rgba(255,255,255,0.02);
+  background: color-mix(in srgb, var(--panel-2) 55%, transparent);
   border-top: 1px solid var(--border);
   border-bottom: 1px solid var(--border);
 }
@@ -205,7 +265,7 @@ p{
 .card{
   border-radius: var(--radius);
   border: 1px solid var(--border);
-  background: rgba(17,24,37,0.65);
+  background: color-mix(in srgb, var(--panel) 72%, transparent);
   padding: 16px;
 }
 
@@ -218,8 +278,9 @@ p{
   margin: 0;
 }
 
-/* Download list */
-
+/* =========================
+   DOWNLOAD LIST
+   ========================= */
 .downloads{
   display: grid;
   gap: 12px;
@@ -234,7 +295,7 @@ p{
   padding: 16px;
   border-radius: var(--radius);
   border: 1px solid var(--border);
-  background: rgba(17,24,37,0.65);
+  background: color-mix(in srgb, var(--panel) 72%, transparent);
 }
 
 .download-item__meta h3{
@@ -251,7 +312,7 @@ p{
   padding: 4px 10px;
   border-radius: 999px;
   border: 1px solid var(--border);
-  background: rgba(126,226,184,0.10);
+  background: color-mix(in srgb, var(--brand) 12%, transparent);
   color: var(--text);
   font-size: 0.9rem;
 }
@@ -260,63 +321,191 @@ p{
   margin-top: 14px;
   padding: 14px 16px;
   border-radius: var(--radius);
-  border: 1px dashed rgba(255,255,255,0.22);
+  border: 1px dashed color-mix(in srgb, var(--text) 22%, transparent);
   color: var(--muted);
-  background: rgba(0,0,0,0.18);
+  background: color-mix(in srgb, #000 8%, transparent);
 }
 
-/*   BOTTONI */
-
+/* =========================
+   BOTTONI
+   ========================= */
 .button{
   display: inline-flex;
   align-items: center;
   justify-content: center;
   padding: 10px 14px;
   border-radius: 12px;
-  border: 1px solid rgba(255,255,255,0.16);
-  background: linear-gradient(135deg, rgba(126,226,184,0.35), rgba(105,179,255,0.25));
+  border: 1px solid color-mix(in srgb, var(--text) 16%, transparent);
+  background: linear-gradient(
+    135deg,
+    color-mix(in srgb, var(--brand) 35%, transparent),
+    color-mix(in srgb, var(--brand-2) 25%, transparent)
+  );
   font-weight: 650;
   text-decoration: none;
 }
 
 .button:hover{
   text-decoration: none;
-  border-color: rgba(255,255,255,0.28);
+  border-color: color-mix(in srgb, var(--text) 28%, transparent);
 }
 
 .button--ghost{
-  background: rgba(255,255,255,0.04);
+  background: color-mix(in srgb, var(--panel) 40%, transparent);
 }
 
-.button:focus,
-.nav a:focus,
-a:focus{
-  outline: 3px solid rgba(126,226,184,0.55);
-  outline-offset: 2px;
-}
-
-/* Lista processo */
-
-.steps{
-  margin: 12px 0 0;
-  padding-left: 18px;
-}
-
-.steps li{
-  margin: 10px 0;
-  color: var(--muted);
-}
-
-/* footer */
-
+/* =========================
+   FOOTER
+   ========================= */
 .site-footer{
   border-top: 1px solid var(--border);
   padding: 20px 0;
   color: var(--muted);
 }
 
-/* Responsive */
+/* =========================
+   THEME SWITCH (Day/Night)
+   ========================= */
+.theme-switch{
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 6px 10px;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: color-mix(in srgb, var(--panel) 45%, transparent);
+  color: var(--text);
+  cursor: pointer;
+  user-select: none;
+}
 
+.theme-switch__track{
+  width: 44px;
+  height: 24px;
+  border-radius: 999px;
+  border: 1px solid color-mix(in srgb, var(--text) 18%, transparent);
+  background: color-mix(in srgb, #000 12%, transparent);
+  position: relative;
+  flex: 0 0 auto;
+}
+
+.theme-switch__thumb{
+  width: 18px;
+  height: 18px;
+  border-radius: 999px;
+  position: absolute;
+  top: 50%;
+  left: 3px;
+  transform: translateY(-50%);
+  background: var(--text);
+  transition: transform 180ms ease;
+}
+
+.theme-switch__text{
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-weight: 650;
+  font-size: 0.95rem;
+  white-space: nowrap;
+}
+
+.theme-switch__label{
+  color: var(--muted);
+}
+
+/* Checked (Dark mode ON) */
+.theme-switch[aria-checked="true"] .theme-switch__thumb{
+  transform: translate(20px, -50%);
+}
+
+/* Focus ring */
+.theme-switch:focus-visible{
+  outline: 3px solid color-mix(in srgb, var(--brand) 60%, transparent);
+  outline-offset: 3px;
+}
+
+/* =========================
+   WCAG PATCH (AA / 2.2)
+   ========================= */
+
+/* Link riconoscibili nel testo (non solo al passaggio mouse) */
+main a:not(.button):not(.brand):not(.nav a):not(.lang__link) {
+  text-decoration: underline;
+  text-underline-offset: 0.18em;
+  text-decoration-thickness: 0.12em;
+}
+
+main a:not(.button):not(.brand):not(.nav a):not(.lang__link):hover {
+  text-decoration-thickness: 0.16em;
+}
+
+/* Focus visibile e coerente: usa focus-visible */
+:where(a, button, input, select, textarea, summary, [tabindex]:not([tabindex="-1"])):focus {
+  outline: none;
+}
+
+:where(a, button, input, select, textarea, summary, [tabindex]:not([tabindex="-1"])):focus-visible {
+  outline: 3px solid color-mix(in srgb, var(--brand) 70%, transparent);
+  outline-offset: 3px;
+}
+
+.button:focus-visible,
+.nav a:focus-visible,
+.lang__link:focus-visible{
+  outline-offset: 4px;
+}
+
+/* Navbar: hover/focus più evidente */
+.nav a:hover,
+.nav a:focus-visible{
+  border-color: color-mix(in srgb, var(--text) 22%, transparent);
+}
+
+/* Skip link: più robusto sopra lo sticky header */
+.skip-link:focus-visible{
+  left: 12px;
+  top: 12px;
+  outline: 3px solid color-mix(in srgb, var(--brand) 70%, transparent);
+  outline-offset: 2px;
+}
+
+/* Target size consigliato (WCAG 2.2) */
+.nav a,
+.button,
+.lang__link,
+.theme-switch{
+  min-height: 44px;
+}
+
+/* Link dentro testo muted: resta riconoscibile */
+.muted a{
+  text-decoration: underline;
+}
+
+/* Anchor con header sticky */
+section[id]{
+  scroll-margin-top: 80px;
+}
+
+/* Riduci motion se l’utente lo chiede */
+@media (prefers-reduced-motion: reduce){
+  html:focus-within{
+    scroll-behavior: auto;
+  }
+  *, *::before, *::after{
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  .theme-switch__thumb{
+    transition: none !important;
+  }
+}
+
+/* =========================
+   RESPONSIVE
+   ========================= */
 @media (max-width: 900px){
   .hero__grid{
     grid-template-columns: 1fr;
@@ -329,77 +518,5 @@ a:focus{
   .download-item{
     flex-direction: column;
     align-items: stretch;
-  }
-}
-
-/* =========================
-   WCAG PATCH (AA / 2.2)
-   ========================= */
-
-/* Link riconoscibili nel testo (non solo al passaggio mouse) */
-main a:not(.button):not(.brand):not(.nav a) {
-  text-decoration: underline;
-  text-underline-offset: 0.18em;
-  text-decoration-thickness: 0.12em;
-}
-
-main a:not(.button):not(.brand):not(.nav a):hover {
-  text-decoration-thickness: 0.16em;
-}
-
-/* Focus visibile e coerente: usa focus-visible */
-:where(a, button, input, select, textarea, summary, [tabindex]:not([tabindex="-1"])):focus {
-  outline: none;
-}
-
-:where(a, button, input, select, textarea, summary, [tabindex]:not([tabindex="-1"])):focus-visible {
-  outline: 3px solid rgba(126,226,184,0.85);
-  outline-offset: 3px;
-}
-
-.button:focus-visible,
-.nav a:focus-visible {
-  outline-offset: 4px;
-}
-
-/* Navbar: hover/focus più evidente */
-.nav a:hover,
-.nav a:focus-visible {
-  border-color: rgba(255,255,255,0.28);
-}
-
-/* Skip link: più robusto sopra lo sticky header */
-.skip-link:focus-visible {
-  left: 12px;
-  top: 12px;
-  outline: 3px solid rgba(126,226,184,0.85);
-  outline-offset: 2px;
-}
-
-/* Target size consigliato (WCAG 2.2) */
-.nav a,
-.button {
-  min-height: 44px;
-}
-
-/* Link dentro testo muted: resta riconoscibile */
-.muted a {
-  text-decoration: underline;
-}
-
-/* Anchor con header sticky */
-section[id] {
-  scroll-margin-top: 80px;
-}
-
-/* Riduci motion se l’utente lo chiede */
-@media (prefers-reduced-motion: reduce) {
-  html:focus-within {
-    scroll-behavior: auto;
-  }
-  *, *::before, *::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
   }
 }
