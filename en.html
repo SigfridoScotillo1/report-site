@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <title>Sustainability reports – Eni (download)</title>
-
   <meta name="description" content="Informational page to learn about sustainability initiatives and download Eni’s official sustainability reports (PDF)." />
 
   <link rel="stylesheet" href="styles.css" />
@@ -28,6 +27,21 @@
         <a href="#risultati-2024">2024 highlights</a>
         <a href="#obiettivi">Goals</a>
         <a href="#download">Report downloads</a>
+
+        <!-- Theme switch (Day/Night) -->
+        <button class="theme-switch"
+                type="button"
+                role="switch"
+                aria-checked="false"
+                aria-label="Enable dark mode">
+          <span class="theme-switch__track" aria-hidden="true">
+            <span class="theme-switch__thumb" aria-hidden="true"></span>
+          </span>
+          <span class="theme-switch__text">
+            <span class="theme-switch__icon" aria-hidden="true">☀️</span>
+            <span class="theme-switch__label">Day</span>
+          </span>
+        </button>
 
         <!-- Language selector (hash added via JS) -->
         <span class="lang" aria-label="Language selector">
@@ -297,14 +311,60 @@
     </div>
   </footer>
 
-  <!-- Keeps the same section when switching between IT and EN -->
   <script>
     (function () {
+      /* Keep same section when switching language */
       const hash = window.location.hash || "";
       const it = document.querySelector('.lang__link[lang="it"]');
       const en = document.querySelector('.lang__link[lang="en"]');
       if (it) it.href = "index.html" + hash;
       if (en) en.href = "en.html" + hash;
+
+      /* Theme switch: system + override + persistence */
+      const STORAGE_KEY = "theme";
+      const root = document.documentElement;
+      const btn = document.querySelector(".theme-switch");
+
+      function prefersDark() {
+        return window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
+      }
+
+      function setUI(isDark){
+        if (!btn) return;
+        btn.setAttribute("aria-checked", String(isDark));
+        btn.setAttribute("aria-label", isDark ? "Enable light mode" : "Enable dark mode");
+        const label = btn.querySelector(".theme-switch__label");
+        const icon = btn.querySelector(".theme-switch__icon");
+        if (label) label.textContent = isDark ? "Night" : "Day";
+        if (icon) icon.textContent = isDark ? "🌙" : "☀️";
+      }
+
+      function apply(theme){
+        const isDark = theme === "dark";
+        if (isDark) root.setAttribute("data-theme", "dark");
+        else root.removeAttribute("data-theme");
+        setUI(isDark);
+      }
+
+      const saved = localStorage.getItem(STORAGE_KEY);
+      const initial = saved ? saved : (prefersDark() ? "dark" : "light");
+      apply(initial);
+
+      if (btn) {
+        btn.addEventListener("click", function () {
+          const nowDark = root.getAttribute("data-theme") === "dark";
+          const next = nowDark ? "light" : "dark";
+          localStorage.setItem(STORAGE_KEY, next);
+          apply(next);
+        });
+      }
+
+      if (window.matchMedia) {
+        window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", () => {
+          const manual = localStorage.getItem(STORAGE_KEY);
+          if (!manual) apply(prefersDark() ? "dark" : "light");
+        });
+      }
     })();
   </script>
 </body>
