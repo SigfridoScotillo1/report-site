@@ -29,9 +29,10 @@
         <a href="#obiettivi">Obiettivi</a>
         <a href="#download">Download report</a>
 
+        <!-- Selettore lingua (hash aggiunto via JS) -->
         <span class="lang" aria-label="Selettore lingua">
-          <a class="lang__link" href="index.html#risultati-2024" lang="it" aria-current="page">IT</a>
-          <a class="lang__link" href="en.html#results-2024" lang="en">EN</a>
+          <a class="lang__link" href="index.html" lang="it" aria-current="page">IT</a>
+          <a class="lang__link" href="en.html" lang="en">EN</a>
         </span>
       </nav>
     </div>
@@ -296,5 +297,16 @@
       </p>
     </div>
   </footer>
+
+  <!-- Mantiene la stessa sezione quando passi da IT a EN e viceversa -->
+  <script>
+    (function () {
+      const hash = window.location.hash || "";
+      const it = document.querySelector('.lang__link[lang="it"]');
+      const en = document.querySelector('.lang__link[lang="en"]');
+      if (it) it.href = "index.html" + hash;
+      if (en) en.href = "en.html" + hash;
+    })();
+  </script>
 </body>
 </html>
