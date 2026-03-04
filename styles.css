@@ -331,3 +331,75 @@ a:focus{
     align-items: stretch;
   }
 }
+
+/* =========================
+   WCAG PATCH (AA / 2.2)
+   ========================= */
+
+/* Link riconoscibili nel testo (non solo al passaggio mouse) */
+main a:not(.button):not(.brand):not(.nav a) {
+  text-decoration: underline;
+  text-underline-offset: 0.18em;
+  text-decoration-thickness: 0.12em;
+}
+
+main a:not(.button):not(.brand):not(.nav a):hover {
+  text-decoration-thickness: 0.16em;
+}
+
+/* Focus visibile e coerente: usa focus-visible */
+:where(a, button, input, select, textarea, summary, [tabindex]:not([tabindex="-1"])):focus {
+  outline: none;
+}
+
+:where(a, button, input, select, textarea, summary, [tabindex]:not([tabindex="-1"])):focus-visible {
+  outline: 3px solid rgba(126,226,184,0.85);
+  outline-offset: 3px;
+}
+
+.button:focus-visible,
+.nav a:focus-visible {
+  outline-offset: 4px;
+}
+
+/* Navbar: hover/focus più evidente */
+.nav a:hover,
+.nav a:focus-visible {
+  border-color: rgba(255,255,255,0.28);
+}
+
+/* Skip link: più robusto sopra lo sticky header */
+.skip-link:focus-visible {
+  left: 12px;
+  top: 12px;
+  outline: 3px solid rgba(126,226,184,0.85);
+  outline-offset: 2px;
+}
+
+/* Target size consigliato (WCAG 2.2) */
+.nav a,
+.button {
+  min-height: 44px;
+}
+
+/* Link dentro testo muted: resta riconoscibile */
+.muted a {
+  text-decoration: underline;
+}
+
+/* Anchor con header sticky */
+section[id] {
+  scroll-margin-top: 80px;
+}
+
+/* Riduci motion se l’utente lo chiede */
+@media (prefers-reduced-motion: reduce) {
+  html:focus-within {
+    scroll-behavior: auto;
+  }
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
