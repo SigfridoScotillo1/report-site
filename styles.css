@@ -181,6 +181,23 @@ a:hover{
 }
 
 /* =========================
+   SECTION TITLE + ENI LOGO
+   ========================= */
+.section-title{
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.eni-logo{
+  display: inline-block;
+  width: 36px;
+  height: 36px;
+  object-fit: contain;
+  border-radius: 8px; /* opzionale */
+}
+
+/* =========================
    HERO
    ========================= */
 .hero{
@@ -564,7 +581,7 @@ section[id]{
     border-color: color-mix(in srgb, var(--text) 10%, transparent);
   }
 
-  /* Switch tema e lingua: più piccoli e allineati */
+  /* Switch tema e lingua */
   .theme-switch{
     padding: 6px 10px;
   }
@@ -582,6 +599,12 @@ section[id]{
     border-radius: 999px;
     background: color-mix(in srgb, var(--panel) 55%, transparent);
     border-color: color-mix(in srgb, var(--text) 10%, transparent);
+  }
+
+  /* Logo sezione "Chi è Eni" più piccolo su mobile */
+  .eni-logo{
+    width: 30px;
+    height: 30px;
   }
 
   /* Hero più compatta */
