@@ -24,7 +24,7 @@ jobs:
           submodules: true
           lfs: false
 
-      # Manteniamo i tuoi step OIDC (vanno bene così)
+      # Mantenstep OIDC
       - name: Install OIDC Client from Core Package
         run: npm install @actions/core@1.6.0 @actions/http-client
 
